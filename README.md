@@ -8,9 +8,27 @@ A Windows PowerShell toolkit that reads a CSV to create or update an on-premises
 
 | | This toolkit | Microsoft Entra Connect Sync |
 | --- | --- | --- |
-| Identity | Creates or updates two independently managed accounts. Existing synchronized cloud accounts are blocked. | Synchronizes in-scope AD DS objects and attributes to Microsoft Entra ID for a hybrid identity lifecycle. |
+| Identity | Creates or updates independently managed Active Directory and cloud-only Microsoft 365 accounts. If an existing Microsoft 365 account is synchronized through Microsoft Entra Connect, the toolkit reports an error and does not manage that synchronized cloud identity. | Synchronizes in-scope AD DS objects and attributes to Microsoft Entra ID for a hybrid identity lifecycle. |
 | Credentials | Matching UPNs still represent two accounts with independent password changes and policies. | The configured sign-in method determines cloud authentication. Password hash synchronization can let users sign in with their on-premises password. |
 | Operations | Requires independent account maintenance and offboarding. | Requires a configured sync deployment and management of synchronization scope and health. |
+
+### Important: Existing Microsoft 365 Accounts
+
+The term "unsupported synchronized identity" refers to a limitation of the onboarding automation. It does not mean the user's Microsoft 365 sign-in is disabled.
+
+When the toolkit detects an existing synchronized Microsoft 365 account, its intended behavior is to reject that onboarding operation.
+
+The toolkit does not intentionally:
+
+- Disable Microsoft 365 sign-in.
+- Delete existing Microsoft 365 accounts.
+- Delete Exchange Online mailboxes.
+- Reset passwords for existing cloud accounts.
+- Remove existing Microsoft 365 licenses.
+
+Existing cloud-only Microsoft 365 accounts may be reused and updated by the toolkit, including profile attributes, license assignment, and group membership.
+
+**Important:** Preflight checks are intended to detect conflicts before Apply. If a conflict or failure is discovered after processing begins, earlier Active Directory or resource changes may remain. The toolkit does not guarantee automatic rollback.
 
 Keep AD accounts created by this workflow out of sync scope unless you have separately planned and validated a migration. Use your established hybrid provisioning workflow for synchronized identities. [Microsoft Entra Connect Sync](https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-syncservice-features) · [Password hash synchronization](https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-password-hash-synchronization)
 
