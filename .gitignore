@@ -1,0 +1,29 @@
+# Keep the original fictional template tracked. Run with populated copies outside Git.
+*.csv
+!/Organization-CombinedUserImport-Template.csv
+
+# Local settings, setup state, and backups
+.env
+.env.*
+*.local.*
+*.secret.*
+*.bak
+*.bak.*
+*.backup
+*.backup.*
+Setup-Draft.json
+.organization-setup-complete
+Backups/
+config/
+local/
+
+# Operational artifacts and credentials
+Logs/
+*.log
+*.tmp
+*.zip
+*.pfx
+*.p12
+*.pem
+*.key
+*.clixml

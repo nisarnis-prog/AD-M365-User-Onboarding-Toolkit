@@ -1,0 +1,2 @@
+﻿UserName,GivenName,Surname,DisplayName,UserPrincipalName,MailNickname,InitialPassword,PersonalEmail,OU,JobTitle,Department,CompanyName,EmployeeId,MobilePhone,BusinessPhone,OfficeLocation,State,Country
+jane.doe,Jane,Doe,Jane Doe,jane.doe@example.com,jane.doe,EXAMPLE-DO-NOT-USE,jane.personal@example.net,"OU=Employees,DC=corp,DC=example,DC=com",Analyst,Operations,Example Company,E1001,,,HQ,Example State,United States

@@ -1,0 +1,64 @@
+AD AND MICROSOFT 365 USER ONBOARDING TOOLKIT
+v1.0.0-preview.1
+==========================================
+
+STATUS
+Reported offline Windows tests: 15 passed, 0 failed, 0 skipped.
+Live Active Directory, SMB/NTFS, Microsoft 365, and Exchange Online
+integration testing is pending. Use an isolated lab before considering
+production use. See README.md in the GitHub repository for prerequisites,
+configuration, identity design, and security guidance.
+
+QUICK START
+1. Extract the six toolkit files to a restricted Windows administrator
+   workstation folder outside any Git checkout.
+2. Run First-Time-Setup.bat and enter AGREE. Enter approved lab settings,
+   including the exact Entra tenant GUID. Normal setup updates the local
+   onboarding script, creates a backup, and writes a setup marker.
+   To practice with fictional settings, enter TEST in the wizard and
+   optionally SAVE-TEST to save Setup-Draft.json. Practice mode leaves
+   the engine and setup marker untouched.
+3. Replace the fictional row in the local copy of
+   Organization-CombinedUserImport-Template.csv with approved lab data.
+   Retain the filename and header. InitialPassword may contain plaintext
+   passwords. Never commit or upload a populated CSV to GitHub, even
+   in a private repository. Restrict access to scripts with operational
+   settings, populated inputs, backups, setup drafts, and logs.
+4. Run Run-Organization-Onboarding.bat, enter AGREE, and choose 1 for
+   Preview. Preview uses WhatIf, may authenticate and perform live
+   directory, SMB, and cloud lookups, and can write local logs.
+5. After lab validation, authorization, backups, and review of the
+   Preview results, run the launcher elevated and choose 2 for Apply.
+   Enter EXECUTE-ONBOARDING only when ready. Apply makes real changes
+   to accounts, groups, licensing, folders, permissions, SMB shares,
+   and NETLOGON scripts as applicable. Verify the results.
+
+IDENTITY AND ACCESS
+- The toolkit manages separate on-premises AD and cloud-only Microsoft
+  365 accounts. Matching UPNs do not synchronize credentials. Existing
+  synchronized cloud accounts are blocked.
+- New home directories receive their initial NTFS ACL at creation.
+  Existing ACLs are verified read-only. Missing access rules, Deny
+  entries, unresolved SIDs, reparse points, and home-path conflicts
+  can block the operation. Validate effective access independently.
+- A trailing dollar sign hides an SMB share from ordinary browsing.
+  SMB share permissions and NTFS permissions still govern access.
+- Per-user NETLOGON scripts map common drives and the home share. Test
+  mappings and drive-letter conflicts at domain sign-in.
+
+RECOVERY
+- Keep password email disabled. An enabled welcome email can send the
+  temporary password to personal and corporate addresses, copy the
+  configured recipient, and leave a copy in the sender's Sent Items.
+- Partial failures can leave persistent changes. Inspect logs and actual
+  resource state before retrying. Created resources are retained for
+  manual review. Inspect the NETLOGON script and AD ScriptPath before
+  deciding how to recover. Verify email delivery before any manual resend.
+- Path preflight does not eliminate concurrent filesystem changes. Test
+  path handling and access on representative Windows Server and SMB
+  systems before production use.
+
+Provided AS IS without warranty. The operator and organization are
+responsible for authorization, configuration, backups, and testing.
+The author and distributor disclaim liability to the maximum extent
+permitted by law. This does not limit non-excludable legal rights.
