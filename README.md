@@ -45,3 +45,12 @@ The toolkit uses Microsoft Graph to set the configured usage location and assign
 - Filesystem races and effective access depend on the environment. Validate native path handling, SMB and NTFS permissions, NETLOGON behavior, and live AD and Microsoft 365 operations in a representative isolated lab.
 
 See [SECURITY.md](SECURITY.md) for private reporting guidance and [CHANGELOG.md](CHANGELOG.md) for release history.
+
+
+## License
+
+The toolkit is licensed under the [MIT License](LICENSE).
+
+Copyright (c) 2026 Nisar Muhammad.
+
+You may use, modify, and redistribute the toolkit under the MIT License. The software is provided AS IS without warranty. This preview is intended for isolated lab evaluation. The toolkit has no production certification.
