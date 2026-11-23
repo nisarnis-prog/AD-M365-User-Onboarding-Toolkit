@@ -1,5 +1,11 @@
 # AD & Microsoft 365 User Onboarding Toolkit
 
+By Nisar Muhammad
+
+## 📘 New Here? Start with the Step-by-Step Guide
+
+**[📥 Download the Complete Step-by-Step Administrator Guide (PDF)](Documentation/AD-M365-User-Onboarding-Step-by-Step-Guide.pdf)**
+
 A Windows PowerShell toolkit that reads a CSV to create or update an on-premises Active Directory (AD DS) account and a separate cloud-only Microsoft 365 account. It can also manage a configured AD printer-group membership, assign a Microsoft 365 license and Exchange group memberships, provision a home folder and SMB share, and set up NETLOGON drive mappings.
 
 **v1.0.0-preview.1 is for isolated lab evaluation.** The reported offline Windows test results were **15 passed, 0 failed, 0 skipped**. Live AD DS, SMB/NTFS, Microsoft 365, and Exchange Online integration testing is pending. Complete lab validation before considering production use.
@@ -9,11 +15,7 @@ A Windows PowerShell toolkit that reads a CSV to create or update an on-premises
 
 ## Identity and licensing
 
-| | This toolkit | Microsoft Entra Connect Sync |
-| --- | --- | --- |
-| Identity | Creates or updates independently managed Active Directory and cloud-only Microsoft 365 accounts. If an existing Microsoft 365 account is synchronized through Microsoft Entra Connect, the toolkit reports an error and does not manage that synchronized cloud identity. | Synchronizes in-scope AD DS objects and attributes to Microsoft Entra ID for a hybrid identity lifecycle. |
-| Credentials | Matching UPNs still represent two accounts with independent password changes and policies. | The configured sign-in method determines cloud authentication. Password hash synchronization can let users sign in with their on-premises password. |
-| Operations | Requires independent account maintenance and offboarding. | Requires a configured sync deployment and management of synchronization scope and health. |
+The toolkit provisions independent AD and cloud-only Microsoft 365 accounts. Matching UPNs do not synchronize passwords or account lifecycles. Hybrid synchronization through Microsoft Entra Connect Sync is outside this toolkit's scope.
 
 ### Important: Existing Microsoft 365 Accounts
 
@@ -32,8 +34,6 @@ The toolkit does not intentionally:
 Existing cloud-only Microsoft 365 accounts may be reused and updated by the toolkit, including profile attributes, license assignment, and group membership.
 
 **Important:** Preflight checks are intended to detect conflicts before Apply. If a conflict or failure is discovered after processing begins, earlier Active Directory or resource changes may remain. The toolkit does not guarantee automatic rollback.
-
-Keep AD accounts created by this workflow out of sync scope unless you have separately planned and validated a migration. Use your established hybrid provisioning workflow for synchronized identities. [Microsoft Entra Connect Sync](https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-syncservice-features) · [Password hash synchronization](https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-password-hash-synchronization)
 
 The toolkit uses Microsoft Graph to set the configured usage location and assign a license directly from the configured SKU. Preflight checks seat availability. Exchange Online handles membership in configured mail-enabled groups. Confirm that the groups exist, support manual membership, and that your operator has the necessary permissions.
 
@@ -56,7 +56,7 @@ The toolkit uses Microsoft Graph to set the configured usage location and assign
 2. Run `First-Time-Setup.bat` and enter `AGREE`. Enter the lab organization settings, including the tenant GUID, approved admin accounts, file-server and share paths, group identifiers, drive letters, and license settings. Normal setup updates the local engine copy, creates a backup, and writes a setup marker. The optional `TEST` setup mode uses fictional inputs and can save `Setup-Draft.json` without enabling onboarding.
 3. Replace the fictional example row in the **lab copy** of `Organization-CombinedUserImport-Template.csv` with authorized test data. Keep its header and filename. The launcher expects this exact filename, and new users require a valid initial password.
 4. Run `Run-Organization-Onboarding.bat`, enter `AGREE`, and select **1 — Preview**. This passes `-WhatIf`. Preview may authenticate, perform live AD DS, SMB, Microsoft Graph, and Exchange Online lookups, and write local logs. Review the planned operations, target tenant, account matches, paths, license capacity, and errors before proceeding.
-5. After isolated lab review, authorization, and backups, run the launcher from an elevated session and select **2 — Apply**. Apply makes actual changes to AD, Microsoft 365, and Windows file infrastructure. Enter `EXECUTE-ONBOARDING` only after reviewing the input and intended changes. Verify the resulting identities, permissions, memberships, licenses, and mappings.
+5. After isolated lab review, authorization, and backups, run the launcher from an elevated session and select **2 — Apply**. Apply makes actual changes to AD, Microsoft 365, and Windows file infrastructure. Enter `EXECUTE-ONBOARDING` in the launcher, then review the engine's preflight plan and enter `CREATE` to proceed. If optional password email is enabled, the engine also requires `I ACCEPT EMAIL RISK` before `CREATE`. Verify the resulting identities, permissions, memberships, licenses, and mappings.
 
 ## Security and recovery
 
