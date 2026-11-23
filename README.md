@@ -4,6 +4,9 @@ A Windows PowerShell toolkit that reads a CSV to create or update an on-premises
 
 **v1.0.0-preview.1 is for isolated lab evaluation.** The reported offline Windows test results were **15 passed, 0 failed, 0 skipped**. Live AD DS, SMB/NTFS, Microsoft 365, and Exchange Online integration testing is pending. Complete lab validation before considering production use.
 
+> [!IMPORTANT]
+> **Use this preview only for authorized, isolated lab evaluation until independently validated.** Apply can create or modify real AD and Microsoft 365 resources. Read [Safety, user responsibilities and liability](#safety-user-responsibilities-and-liability) before running the toolkit.
+
 ## Identity and licensing
 
 | | This toolkit | Microsoft Entra Connect Sync |
@@ -72,3 +75,12 @@ The toolkit is licensed under the [MIT License](LICENSE).
 Copyright (c) 2026 Nisar Muhammad.
 
 You may use, modify, and redistribute the toolkit under the MIT License. The software is provided AS IS without warranty. This preview is intended for isolated lab evaluation. The toolkit has no production certification.
+
+## Safety, user responsibilities and liability
+
+- Verify the target tenant, domain, OU, account matches, groups, license SKU and capacity, filesystem and share paths, and delegated permissions. Incorrect configuration can cause account, licensing, permission, or service problems.
+- Protect initial passwords and populated CSVs. Keep them in restricted storage outside the repository and use an approved credential-delivery process.
+- Review Preview and validate independently in an isolated lab. Preview does not guarantee that Apply will succeed or that changes can be reversed. Partial operations may leave resources or settings that need manual intervention.
+- Administrators are responsible for authorization, correct configuration, recoverable backups, testing, operational security, and compliance with applicable organizational and regulatory requirements.
+
+The preview is provided as is under the [MIT License](LICENSE), without warranty. The author does not guarantee successful onboarding, compatibility, or uninterrupted operation. To the extent permitted by applicable law, the author is not liable for losses or damage arising from use. See the [security policy](SECURITY.md).
