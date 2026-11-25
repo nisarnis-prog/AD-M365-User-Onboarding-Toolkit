@@ -1,13 +1,13 @@
 <picture>
-  <source media="(max-width: 640px)" srcset="assets/portfolio/hero-mobile.svg" />
-  <img src="assets/portfolio/hero.svg" width="1200" alt="AD &amp; Microsoft 365 User Onboarding — Nisar Muhammad" />
+  <source media="(max-width: 640px)" srcset="assets/phase2/hero-mobile.svg" />
+  <img src="assets/phase2/hero.svg" width="1200" alt="AD &amp; Microsoft 365 User Onboarding — Nisar Muhammad" />
 </picture>
 
 # AD & Microsoft 365 User Onboarding Toolkit
 
 By Nisar Muhammad
 
-## 📘 New Here? Start with the Step-by-Step Guide
+## <img src="assets/phase2/section.svg" width="32" alt="" /> 📘 New Here? Start with the Step-by-Step Guide
 
 **[📥 Download the Complete Step-by-Step Administrator Guide (PDF)](Documentation/AD-M365-User-Onboarding-Step-by-Step-Guide.pdf)**
 
@@ -18,7 +18,7 @@ A Windows PowerShell toolkit that reads a CSV to create or update an on-premises
 > [!IMPORTANT]
 > **Use this preview only for authorized, isolated lab evaluation until independently validated.** Apply can create or modify real AD and Microsoft 365 resources. Read [Safety, user responsibilities and liability](#safety-user-responsibilities-and-liability) before running the toolkit.
 
-## Identity and licensing
+## <img src="assets/phase2/section.svg" width="32" alt="" /> Identity and licensing
 
 The toolkit provisions independent AD and cloud-only Microsoft 365 accounts. Matching UPNs do not synchronize passwords or account lifecycles. Hybrid synchronization through Microsoft Entra Connect Sync is outside this toolkit's scope.
 
@@ -42,13 +42,13 @@ Existing cloud-only Microsoft 365 accounts may be reused and updated by the tool
 
 The toolkit uses Microsoft Graph to set the configured usage location and assign a license directly from the configured SKU. Preflight checks seat availability. Exchange Online handles membership in configured mail-enabled groups. Confirm that the groups exist, support manual membership, and that your operator has the necessary permissions.
 
-## Home folders and drive mappings
+## <img src="assets/phase2/section.svg" width="32" alt="" /> Home folders and drive mappings
 
 - The toolkit creates the final home-folder directory with an initial NTFS ACL. Existing folder ACLs are validated read-only. Missing required rules, Deny entries, unresolved SIDs, and unsafe home-folder paths can block the run for manual review.
 - The home folder is published as a hidden SMB share such as `\\fileserver\jane.doe$`. The trailing dollar sign hides it from ordinary browsing. Access still depends on both SMB share permissions and NTFS permissions. Validate effective access using representative accounts.
 - The toolkit can create a per-user BAT file in NETLOGON and point the AD user's `ScriptPath` at it. The BAT maps two common shares and the user's home share with `net use`. Check drive-letter conflicts, NETLOGON access and replication, and mapping behavior at domain sign-in.
 
-## Prerequisites
+## <img src="assets/phase2/section.svg" width="32" alt="" /> Prerequisites
 
 - An authorized Windows administrator workstation with Windows PowerShell 5.1, the RSAT `ActiveDirectory` module, and network access to the lab domain controller, NETLOGON share, and Windows SMB file server through CIM.
 - Microsoft Graph PowerShell modules `Microsoft.Graph.Authentication`, `Microsoft.Graph.Users`, `Microsoft.Graph.Users.Actions`, and `Microsoft.Graph.Identity.DirectoryManagement`, plus `ExchangeOnlineManagement`.
