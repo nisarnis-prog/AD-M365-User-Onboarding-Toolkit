@@ -1,3 +1,8 @@
+<picture>
+  <source media="(max-width: 640px)" srcset="assets/portfolio/hero-mobile.svg" />
+  <img src="assets/portfolio/hero.svg" width="1200" alt="AD &amp; Microsoft 365 User Onboarding — Nisar Muhammad" />
+</picture>
+
 # AD & Microsoft 365 User Onboarding Toolkit
 
 By Nisar Muhammad
